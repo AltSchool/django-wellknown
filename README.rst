@@ -6,7 +6,7 @@ FORKED: REDUCED TO BAREBONES SERVING MODEL RESOURCES FROM DB TO SIMPLIFY (markin
 django-wellknown
 ================
 
-Django application to provide easy administration of site-meta URIs. ~~Includes robots.txt and crossdomain.xml.~~
+Django application to provide easy administration of site-meta URIs.
 
 Installation
 ============
@@ -28,5 +28,3 @@ Resources may be stored in the database to make it easy for non-technical users 
 * ``path``: the path that maps to the resource
 * ``content``: the content that will be served when the resource is requested
 * ``content_type``: the content_type with which the content will be returned, defaults to ``text/plain``
-
-~~When a resource is saved, it is updated in the cache.~~
