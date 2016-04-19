@@ -5,11 +5,12 @@ from wellknown import models
 class WellKnownIntegrationTest(TestCase):
 
     def testFetchAcmeChallenge(self):
+        PATH = 'acme-challenge/challenge-request'
         DATA = 'challenge-response'
         models.Resource(
-            path='acme-challenge/challenge-request',
+            path=PATH,
             content=DATA).save()
         response = self.client.get(
-            '/.well-known/acme-challenge/challenge-request')
+            '/.well-known/%s' % PATH)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.content, DATA)
