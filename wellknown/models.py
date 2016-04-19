@@ -6,7 +6,7 @@ import mimetypes
 #
 
 class Resource(models.Model):
-    path = models.CharField(max_length=128)
+    path = models.CharField(max_length=128, unique=True)
     content = models.TextField(blank=True)
     content_type = models.CharField(max_length=128, blank=True)
     
