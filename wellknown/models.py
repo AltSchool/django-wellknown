@@ -1,7 +1,5 @@
 from django.db import models
-from django.db.models.signals import post_save
 import mimetypes
-import wellknown
 
 #
 # resource model
@@ -23,18 +21,3 @@ class Resource(models.Model):
         if not self.content_type:
             self.content_type = mimetypes.guess_type(self.path)[0] or 'text/plain'
         super(Resource, self).save(**kwargs)
-
-#
-# update resources when models are saved
-#
-
-def save_handler(sender, **kwargs):
-    reg = kwargs['instance']
-    wellknown.register(
-        reg.path,
-        content=reg.content,
-        content_type=reg.content_type,
-        update=True
-    )
-
-post_save.connect(save_handler, sender=Resource)
