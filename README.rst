@@ -1,4 +1,8 @@
 ================
+FORKED: REDUCED TO BAREBONES SERVING MODEL RESOURCES FROM DB TO SIMPLIFY (markine)
+================
+
+================
 django-wellknown
 ================
 
