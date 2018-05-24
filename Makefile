@@ -1,14 +1,16 @@
-INSTALL_DIR  ?= /usr/local/altschool/django-wellknown
+TOP_DIR ?= $(shell git rev-parse --show-toplevel)
+INSTALL_DIR ?= $(TOP_DIR)/venv
 
 install: $(INSTALL_DIR)
 	. $(INSTALL_DIR)/bin/activate; \
-	python setup.py install > /dev/null
+	python setup.py --quiet install
 
 $(INSTALL_DIR): $(INSTALL_DIR)/bin/activate
 $(INSTALL_DIR)/bin/activate: requirements.txt
 	test -d $(INSTALL_DIR) || virtualenv $(INSTALL_DIR)
 	. $(INSTALL_DIR)/bin/activate; \
-		pip install -r requirements.txt --process-dependency-links $(PIP_FLAGS)
+		pip install -r requirements.txt --process-dependency-links $(PIP_FLAGS); \
+		pip install flake8==2.4.0 $(PIP_FLAGS)
 	touch $(INSTALL_DIR)/bin/activate
 
 test: lint test_nolint
@@ -36,7 +38,8 @@ clean: clean_test_database clean_working_directory
 
 # Lint the project
 lint: clean_working_directory
-	find . -type f -name '*.py' | xargs flake8
+	. $(INSTALL_DIR)/bin/activate; \
+	find . -type f -name '*.py' -not -path '$(INSTALL_DIR)/*' | xargs flake8
 
 # Auto-format the project
 format: clean_working_directory
