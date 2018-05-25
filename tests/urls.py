@@ -1,6 +1,5 @@
-from django.conf.urls import patterns, include, url
-
-urlpatterns = patterns(
-    '',
-    url(r'^', include('wellknown.urls')),
-)
+from django.conf.urls import include, url
+from wellknown import urls
+urlpatterns = [
+    url(r'^', include(urls)),
+]
